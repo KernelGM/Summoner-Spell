@@ -2,17 +2,6 @@ import time
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT
 
-
-def countdown(num_of_secs):
-    while num_of_secs:
-        m, s = divmod(num_of_secs, 60)
-        min_sec_format = f'{m:02d}:{s:02d}'
-        print(min_sec_format)
-        time.sleep(1)
-        num_of_secs -= 1
-    print(f'Acabou o tempo de {num_of_secs} segundos.')
-
-
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 root = ttk.Window(title='Summoner Spell',
                   iconphoto=None,
@@ -25,9 +14,20 @@ root.attributes('-topmost', True)
 root.overrideredirect(1)
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-summoner_spells = sorted([
-    'Barrier', 'Cleanse', 'Exhaust', 'Flash',
-    'Ghost',  'Heal', 'Ignite', 'Smite', 'Teleport'])
+summoner_spells = ['Barrier', 'Cleanse', 'Exhaust', 'Flash',
+                   'Ghost',  'Heal', 'Ignite', 'Smite', 'Teleport']
+
+cooldowns = {
+    'Barrier': 180,
+    'Cleanse': 210,
+    'Exhaust': 210,
+    'Flash': 300,
+    'Ghost': 210,
+    'Heal': 240,
+    'Ignite': 180,
+    'Smite': 15,
+    'Teleport': 420,
+}
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 notebook_tab = ttk.Notebook(master=root)
@@ -67,6 +67,16 @@ def lanes(set_lane):
     combobox_f.current(8)
 
     notebook_tab.add(main_frame, text=set_lane)
+
+
+def countdown(num_of_secs):
+    while num_of_secs:
+        m, s = divmod(num_of_secs, 60)
+        min_sec_format = f'{m:02d}:{s:02d}'
+        print(min_sec_format)
+        time.sleep(1)
+        num_of_secs -= 1
+    print(f'Acabou o tempo de {num_of_secs} segundos.')
 
 
 lanes('TOP')
