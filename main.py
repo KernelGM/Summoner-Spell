@@ -3,15 +3,57 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-root = ttk.Window(title='Summoner Spell',
-                  iconphoto=None,
-                  themename='superhero',
+root = ttk.Window(iconphoto=None,
+                  themename='vapor',
                   alpha=1,
                   minsize=(255, 105))
 
-root.geometry('270x130+1085+50')
+root.geometry('270x160+1085+50')
 root.attributes('-topmost', True)
 root.overrideredirect(True)
+root.minimized = False
+root.maximized = False
+app_name = 'Summoner Spell'
+
+# -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+title_bar = ttk.Frame(root)
+
+close_button = ttk.Button(title_bar, text='❌',
+                          bootstyle=(ttk.DANGER, ttk.LINK),
+                          command=root.destroy)
+
+title_bar_title = ttk.Label(title_bar, text=app_name)
+
+window = ttk.Frame(root)
+
+title_bar.pack(fill=ttk.X)
+close_button.pack(side=ttk.RIGHT)
+title_bar_title.pack(side=ttk.LEFT, padx=10)
+
+window.pack(expand=1, fill=ttk.BOTH)
+
+
+def get_pos(event):
+    if root.maximized is False:
+        xwin = root.winfo_x()
+        ywin = root.winfo_y()
+        startx = event.x_root
+        starty = event.y_root
+
+        ywin = ywin - starty
+        xwin = xwin - startx
+
+        def move_window(event):
+            root.geometry(f'+{event.x_root + xwin}+{event.y_root + ywin}')
+
+        title_bar.bind('<B1-Motion>', move_window)
+        title_bar.bind('<ButtonRelease-1>')
+        title_bar_title.bind('<B1-Motion>', move_window)
+        title_bar_title.bind('<ButtonRelease-1>')
+
+
+title_bar.bind('<Button-1>', get_pos)
+title_bar_title.bind('<Button-1>', get_pos)
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 summoner_spells = ['Barrier', 'Cleanse', 'Exhaust', 'Flash',
@@ -28,6 +70,8 @@ cooldowns = {
     'Smite': 15,
     'Teleport': 420,
 }
+
+roles = ['TOP', 'JNG', 'MID', 'ADC', 'SUP']
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 notebook_tab = ttk.Notebook(master=root)
@@ -67,6 +111,7 @@ def lanes(set_lane):
         state='readonly', exportselection=True)
     combobox_f.pack(side=RIGHT, padx=5, pady=5)
     combobox_f.current(8)
+    print(combobox_f.get())
 
     notebook_tab.add(main_frame, text=set_lane)
 
@@ -81,10 +126,7 @@ def countdown(num_of_secs=300):
     print('Acabou!')
 
 
-lanes('TOP')
-lanes('JNG')
-lanes('MID')
-lanes('ADC')
-lanes('SUP')
+for role in roles:
+    lanes(role)
 
 root.mainloop()
