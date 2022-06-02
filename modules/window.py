@@ -1,7 +1,7 @@
 import ttkbootstrap as ttk
 
 
-def title_bar(app_name, root):
+def title_bar(root, app_name):
     root.attributes('-topmost', True)
     root.overrideredirect(True)
     root.minimized = False
