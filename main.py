@@ -11,7 +11,7 @@ root = ttk.Window(title='Summoner Spell',
 
 root.geometry('270x130+1085+50')
 root.attributes('-topmost', True)
-root.overrideredirect(1)
+root.overrideredirect(True)
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 summoner_spells = ['Barrier', 'Cleanse', 'Exhaust', 'Flash',
@@ -71,7 +71,7 @@ def lanes(set_lane):
     notebook_tab.add(main_frame, text=set_lane)
 
 
-def countdown(num_of_secs=1):
+def countdown(num_of_secs=300):
     while num_of_secs:
         m, s = divmod(num_of_secs, 60)
         min_sec_format = f'{m:02d}:{s:02d}'
