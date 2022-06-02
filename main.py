@@ -32,7 +32,6 @@ summoner_spells = sorted([
 notebook_tab = ttk.Notebook(master=root)
 notebook_tab.pack(side=LEFT, padx=10, pady=10, expand=YES, fill=BOTH)
 
-
 top_label_frame = ttk.Frame(master=root)
 top_label_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
 
