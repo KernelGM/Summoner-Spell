@@ -29,7 +29,11 @@ summoner_spells = sorted([
     'Ghost',  'Heal', 'Ignite', 'Smite', 'Teleport'])
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-top_label_frame = ttk.Labelframe(master=root, text='Top Lane')
+notebook_tab = ttk.Notebook(master=root)
+notebook_tab.pack(side=LEFT, padx=10, pady=10, expand=YES, fill=BOTH)
+
+
+top_label_frame = ttk.Frame(master=root)
 top_label_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
 
 top_frame_d = ttk.Frame(master=top_label_frame)
@@ -59,5 +63,7 @@ top_combobox_f = ttk.Combobox(
     master=top_frame_f, values=summoner_spells, state='readonly')
 top_combobox_f.pack(side=RIGHT, padx=5, pady=5)
 top_combobox_f.current(8)
+
+notebook_tab.add(top_label_frame, text='TOP')
 
 root.mainloop()
