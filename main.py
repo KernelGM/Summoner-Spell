@@ -1,18 +1,58 @@
-import time
-import os
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import BOTH
 
-clear = os.system('cls' if os.name == 'nt' else 'clear')
+root = ttk.Window(themename='vapor')
+root.geometry('200x400')
+
+# -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+top_frame = ttk.Labelframe(root, text='Top Lane', bootstyle="info")
+top_frame.pack(fill=BOTH, expand=True)
+
+top_spell_d = ttk.Label(top_frame, text='1. This is a Label.')
+top_spell_d.pack(fill=BOTH, expand=True)
+
+top_spell_f = ttk.Label(top_frame, text='2. This is another Label.')
+top_spell_f.pack(fill=BOTH, expand=True)
+
+# -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+jg_frame = ttk.Labelframe(root, text='Jungler')
+jg_frame.pack(fill=BOTH, expand=True)
+
+jg_spell_d = ttk.Label(jg_frame, text='1. This is a Label.')
+jg_spell_d.pack(fill=BOTH, expand=True)
+
+jg_spell_f = ttk.Label(jg_frame, text='2. This is another Label.')
+jg_spell_f.pack(fill=BOTH, expand=True)
+
+# -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+mid_frame = ttk.Labelframe(root, text='Mid Lane')
+mid_frame.pack(fill=BOTH, expand=True)
+
+mid_spell_d = ttk.Label(mid_frame, text='1. This is a Label.')
+mid_spell_d.pack(fill=BOTH, expand=True)
+
+mid_spell_f = ttk.Label(mid_frame, text='2. This is another Label.')
+mid_spell_f.pack(fill=BOTH, expand=True)
+
+# -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+adc_frame = ttk.Labelframe(root, text='AD Carry')
+adc_frame.pack(fill=BOTH, expand=True)
+
+adc_spell_d = ttk.Label(adc_frame, text='1. This is a Label.')
+adc_spell_d.pack(fill=BOTH, expand=True)
+
+adc_spell_f = ttk.Label(adc_frame, text='2. This is another Label.')
+adc_spell_f.pack(fill=BOTH, expand=True)
+
+# -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+sup_frame = ttk.Labelframe(root, text='Support')
+sup_frame.pack(fill=BOTH, expand=True)
+
+sup_spell_d = ttk.Label(sup_frame, text='1. This is a Label.')
+sup_spell_d.pack(fill=BOTH, expand=True)
+
+sup_spell_f = ttk.Label(sup_frame, text='2. This is another Label.')
+sup_spell_f.pack(fill=BOTH, expand=True)
 
 
-def countdown(num_of_secs):
-    while num_of_secs:
-        m, s = divmod(num_of_secs, 60)
-        min_sec_format = f'{m:02d}:{s:02d}'
-        print(min_sec_format)
-        time.sleep(1)
-        num_of_secs -= 1
-    print(f'Acabou o tempo de {inp} segundos.')
-
-
-inp = int(input('Digite o tempo em segundos: '))
-countdown(inp)
+root.mainloop()
