@@ -44,11 +44,12 @@ def lanes(set_lane):
     label_d = ttk.Label(master=frame_d, text='Marque o Spell')
     label_d.pack(side=LEFT, padx=5, pady=5)
 
-    button_d = ttk.Button(master=frame_d, text='START')
+    button_d = ttk.Button(master=frame_d, text='START', command=countdown)
     button_d.pack(side=RIGHT, padx=5, pady=5)
 
     combobox_d = ttk.Combobox(
-        master=frame_d, values=summoner_spells, state='readonly')
+        master=frame_d, values=summoner_spells,
+        state='readonly', exportselection=True)
     combobox_d.pack(side=RIGHT, padx=5, pady=5)
     combobox_d.current(3)
 
@@ -58,25 +59,26 @@ def lanes(set_lane):
     label_f = ttk.Label(master=frame_f, text='Marque o Spell')
     label_f.pack(side=LEFT, padx=5, pady=5)
 
-    button_f = ttk.Button(master=frame_f, text='START')
+    button_f = ttk.Button(master=frame_f, text='START', command=countdown)
     button_f.pack(side=RIGHT, padx=5, pady=5)
 
     combobox_f = ttk.Combobox(
-        master=frame_f, values=summoner_spells, state='readonly')
+        master=frame_f, values=summoner_spells,
+        state='readonly', exportselection=True)
     combobox_f.pack(side=RIGHT, padx=5, pady=5)
     combobox_f.current(8)
 
     notebook_tab.add(main_frame, text=set_lane)
 
 
-def countdown(num_of_secs):
+def countdown(num_of_secs=1):
     while num_of_secs:
         m, s = divmod(num_of_secs, 60)
         min_sec_format = f'{m:02d}:{s:02d}'
         print(min_sec_format)
         time.sleep(1)
         num_of_secs -= 1
-    print(f'Acabou o tempo de {num_of_secs} segundos.')
+    print('Acabou!')
 
 
 lanes('TOP')
