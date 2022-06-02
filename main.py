@@ -20,8 +20,9 @@ root = ttk.Window(title='Summoner Spell',
                   alpha=1,
                   minsize=(255, 105))
 
-root.geometry('255x105+1085+50')
+root.geometry('270x130+1085+50')
 root.attributes('-topmost', True)
+root.overrideredirect(1)
 
 # -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 summoner_spells = sorted([
@@ -32,37 +33,46 @@ summoner_spells = sorted([
 notebook_tab = ttk.Notebook(master=root)
 notebook_tab.pack(side=LEFT, padx=10, pady=10, expand=YES, fill=BOTH)
 
-top_label_frame = ttk.Frame(master=root)
-top_label_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
 
-top_frame_d = ttk.Frame(master=top_label_frame)
-top_frame_d.pack(fill=BOTH, expand=YES)
+def lanes(set_lane):
+    main_frame = ttk.Frame(master=root)
+    main_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
 
-top_label_d = ttk.Label(master=top_frame_d, text='Marque o Spell')
-top_label_d.pack(side=LEFT, padx=5, pady=5)
+    frame_d = ttk.Frame(master=main_frame)
+    frame_d.pack(fill=BOTH, expand=YES)
 
-top_button_d = ttk.Button(master=top_frame_d, text='START')
-top_button_d.pack(side=RIGHT, padx=5, pady=5)
+    label_d = ttk.Label(master=frame_d, text='Marque o Spell')
+    label_d.pack(side=LEFT, padx=5, pady=5)
 
-top_combobox_d = ttk.Combobox(
-    master=top_frame_d, values=summoner_spells, state='readonly')
-top_combobox_d.pack(side=RIGHT, padx=5, pady=5)
-top_combobox_d.current(3)
+    button_d = ttk.Button(master=frame_d, text='START')
+    button_d.pack(side=RIGHT, padx=5, pady=5)
 
-top_frame_f = ttk.Frame(master=top_label_frame)
-top_frame_f.pack(fill=BOTH, expand=YES)
+    combobox_d = ttk.Combobox(
+        master=frame_d, values=summoner_spells, state='readonly')
+    combobox_d.pack(side=RIGHT, padx=5, pady=5)
+    combobox_d.current(3)
 
-top_label_f = ttk.Label(master=top_frame_f, text='Marque o Spell')
-top_label_f.pack(side=LEFT, padx=5, pady=5)
+    frame_f = ttk.Frame(master=main_frame)
+    frame_f.pack(fill=BOTH, expand=YES)
 
-top_button_f = ttk.Button(master=top_frame_f, text='START')
-top_button_f.pack(side=RIGHT, padx=5, pady=5)
+    label_f = ttk.Label(master=frame_f, text='Marque o Spell')
+    label_f.pack(side=LEFT, padx=5, pady=5)
 
-top_combobox_f = ttk.Combobox(
-    master=top_frame_f, values=summoner_spells, state='readonly')
-top_combobox_f.pack(side=RIGHT, padx=5, pady=5)
-top_combobox_f.current(8)
+    button_f = ttk.Button(master=frame_f, text='START')
+    button_f.pack(side=RIGHT, padx=5, pady=5)
 
-notebook_tab.add(top_label_frame, text='TOP')
+    combobox_f = ttk.Combobox(
+        master=frame_f, values=summoner_spells, state='readonly')
+    combobox_f.pack(side=RIGHT, padx=5, pady=5)
+    combobox_f.current(8)
+
+    notebook_tab.add(main_frame, text=set_lane)
+
+
+lanes('TOP')
+lanes('JNG')
+lanes('MID')
+lanes('ADC')
+lanes('SUP')
 
 root.mainloop()
