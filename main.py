@@ -1,4 +1,3 @@
-import time
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT
 
@@ -78,17 +77,18 @@ notebook_tab = ttk.Notebook(master=root)
 notebook_tab.pack(side=LEFT, padx=10, pady=10, expand=YES, fill=BOTH)
 
 
-def lanes(set_lane):
+def lane(set_lane):
     main_frame = ttk.Frame(master=root)
     main_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
 
     frame_d = ttk.Frame(master=main_frame)
     frame_d.pack(fill=BOTH, expand=YES)
 
+    global label_d
     label_d = ttk.Label(master=frame_d, text='Marque o Spell')
     label_d.pack(side=LEFT, padx=5, pady=5)
 
-    button_d = ttk.Button(master=frame_d, text='START', command=countdown)
+    button_d = ttk.Button(master=frame_d, text='START', command='')
     button_d.pack(side=RIGHT, padx=5, pady=5)
 
     combobox_d = ttk.Combobox(
@@ -103,7 +103,7 @@ def lanes(set_lane):
     label_f = ttk.Label(master=frame_f, text='Marque o Spell')
     label_f.pack(side=LEFT, padx=5, pady=5)
 
-    button_f = ttk.Button(master=frame_f, text='START', command=countdown)
+    button_f = ttk.Button(master=frame_f, text='START', command='')
     button_f.pack(side=RIGHT, padx=5, pady=5)
 
     combobox_f = ttk.Combobox(
@@ -111,22 +111,10 @@ def lanes(set_lane):
         state='readonly', exportselection=True)
     combobox_f.pack(side=RIGHT, padx=5, pady=5)
     combobox_f.current(8)
-    print(combobox_f.get())
 
     notebook_tab.add(main_frame, text=set_lane)
 
 
-def countdown(num_of_secs=300):
-    while num_of_secs:
-        m, s = divmod(num_of_secs, 60)
-        min_sec_format = f'{m:02d}:{s:02d}'
-        print(min_sec_format)
-        time.sleep(1)
-        num_of_secs -= 1
-    print('Acabou!')
-
-
-for role in roles:
-    lanes(role)
+lane('TOP')
 
 root.mainloop()
