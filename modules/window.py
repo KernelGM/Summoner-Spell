@@ -166,3 +166,6 @@ class MainWindow():
             self.button_f.configure(text='❌')
             self.label_f.configure(text=f'Faltam: {sec}')
             self.label_f.after(1000, lambda: self.countdown_f(True, sec))
+
+    def change_theme(self):
+        ...

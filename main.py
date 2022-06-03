@@ -2,10 +2,10 @@ import ttkbootstrap as ttk
 from modules.window import MainWindow
 
 root = ttk.Window(iconphoto=None,
-                  themename='vapor',
+                  themename='superhero',
                   alpha=1)
 
-root.geometry('270x170+1085+50')
+# root.geometry('270x170+1085+50')
 
 
 window = MainWindow(root=root)
