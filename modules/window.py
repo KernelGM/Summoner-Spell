@@ -13,17 +13,17 @@ class MainWindow():
         self.root.minimized = False
         self.root.maximized = False
 
-        title_bar = ttk.Frame(self.root)
+        self.title_bar = ttk.Frame(self.root)
 
-        close_button = ttk.Button(title_bar, text='❌',
+        close_button = ttk.Button(self.title_bar, text='❌',
                                   bootstyle=(ttk.DANGER, ttk.LINK),
                                   command=self.root.destroy)
 
-        title_bar_title = ttk.Label(title_bar, text=app_name)
+        title_bar_title = ttk.Label(self.title_bar, text=app_name)
 
         window = ttk.Frame(self.root)
 
-        title_bar.pack(fill=ttk.X)
+        self.title_bar.pack(fill=ttk.X)
         close_button.pack(side=ttk.RIGHT)
         title_bar_title.pack(side=ttk.LEFT, padx=10)
 
@@ -43,18 +43,31 @@ class MainWindow():
                     self.root.geometry(
                         f'+{event.x_root + xwin}+{event.y_root + ywin}')
 
-                title_bar.bind('<B1-Motion>', move_window)
-                title_bar.bind('<ButtonRelease-1>')
+                self.title_bar.bind('<B1-Motion>', move_window)
+                self.title_bar.bind('<ButtonRelease-1>')
                 title_bar_title.bind('<B1-Motion>', move_window)
                 title_bar_title.bind('<ButtonRelease-1>')
 
-        title_bar.bind('<Button-1>', get_pos)
+        self.title_bar.bind('<Button-1>', get_pos)
         title_bar_title.bind('<Button-1>', get_pos)
 
     def create_notebook(self):
         self.notebook_tab = ttk.Notebook(master=self.root)
         self.notebook_tab.pack(
             side=LEFT, padx=10, pady=10, expand=YES, fill=BOTH)
+
+    def create_scale(self, min=0.4):
+        self.scale = ttk.Scale(master=self.title_bar,
+                               from_=min,
+                               to=1.0,
+                               value=1.0,
+                               command=self.update_alpha,
+                               orient='horizontal',
+                               length=50, style='warning')
+        self.scale.pack(side=LEFT, padx=10, pady=10)
+
+    def update_alpha(self, value):
+        self.root.attributes('-alpha', self.scale.get())
 
     def create_tab(self, set_lane):
         self.main_frame = ttk.Frame(master=self.root)
@@ -107,7 +120,7 @@ class MainWindow():
             self.label_d.after(1000, lambda: self.countdown_d(True, sec))
 
     def countdown_f(self, validador=False, sec=None):
-        value_f = self.combobox_d.get()
+        value_f = self.combobox_f.get()
         self.time_cooldown = cooldowns.get(value_f)
         if validador is False:
             sec = int(self.time_cooldown)
