@@ -148,7 +148,7 @@ class MainWindow():
             sec = sec - 1
             self.button_d.configure(state='disabled')
             self.button_d.configure(text='❌')
-            self.label_d.configure(text=f'Faltam: {sec}')
+            self.label_d.configure(text=f'Faltam: {sec} seg')
             self.label_d.after(1000, lambda: self.countdown_d(True, sec))
 
     def countdown_f(self, validador=False, sec=None):
@@ -164,7 +164,7 @@ class MainWindow():
             sec = sec - 1
             self.button_f.configure(state='disabled')
             self.button_f.configure(text='❌')
-            self.label_f.configure(text=f'Faltam: {sec}')
+            self.label_f.configure(text=f'Faltam: {sec} seg')
             self.label_f.after(1000, lambda: self.countdown_f(True, sec))
 
     def change_theme(self):
