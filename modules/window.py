@@ -70,21 +70,21 @@ class MainWindow():
         self.root.attributes('-alpha', self.scale.get())
 
     def create_tab(self, set_lane):
-        self.theme_frame = ttk.Frame(master=self.root)
-        self.theme_frame.pack(fill=BOTH,
-                              expand=YES,
-                              padx=5,
-                              pady=5)
+        self.main_frame = ttk.Frame(master=self.root)
+        self.main_frame.pack(fill=BOTH,
+                             expand=YES,
+                             padx=5,
+                             pady=5)
 
-        self.frame_d = ttk.Frame(master=self.theme_frame)
+        self.frame_d = ttk.Frame(master=self.main_frame)
         self.frame_d.pack(fill=BOTH,
                           expand=YES)
 
-        self.theme_label = ttk.Label(master=self.frame_d,
-                                     text='Marque o Spell')
-        self.theme_label.pack(side=LEFT,
-                              padx=5,
-                              pady=5)
+        self.label_d = ttk.Label(master=self.frame_d,
+                                 text='Marque o Spell')
+        self.label_d.pack(side=LEFT,
+                          padx=5,
+                          pady=5)
 
         self.button_d = ttk.Button(master=self.frame_d,
                                    text='✔️',
@@ -104,7 +104,7 @@ class MainWindow():
                              pady=5)
         self.combobox_d.current(3)
 
-        self.frame_f = ttk.Frame(master=self.theme_frame)
+        self.frame_f = ttk.Frame(master=self.main_frame)
         self.frame_f.pack(fill=BOTH,
                           expand=YES)
 
@@ -132,7 +132,7 @@ class MainWindow():
                              pady=5)
         self.combobox_f.current(8)
 
-        self.notebook_tab.add(self.theme_frame,
+        self.notebook_tab.add(self.main_frame,
                               text=set_lane)
 
     def countdown_d(self, validador=False, sec=None):
@@ -141,15 +141,15 @@ class MainWindow():
         if validador is False:
             sec = int(self.time_cooldown)
         if sec == 0:
-            self.theme_label.configure(text='Acabou o tempo!')
+            self.label_d.configure(text='Acabou o tempo!')
             self.button_d.configure(state='enable')
             self.button_d.configure(text='✔️')
         else:
             sec = sec - 1
             self.button_d.configure(state='disabled')
             self.button_d.configure(text='❌')
-            self.theme_label.configure(text=f'Faltam: {sec}')
-            self.theme_label.after(1000, lambda: self.countdown_d(True, sec))
+            self.label_d.configure(text=f'Faltam: {sec}')
+            self.label_d.after(1000, lambda: self.countdown_d(True, sec))
 
     def countdown_f(self, validador=False, sec=None):
         value_f = self.combobox_f.get()
@@ -169,34 +169,29 @@ class MainWindow():
 
     def change_theme(self):
         self.theme_frame = ttk.Frame(master=self.root)
-        self.theme_frame.pack(fill=BOTH,
-                              expand=YES,
-                              padx=5,
-                              pady=5)
+        self.theme_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
 
-        self.theme_label = ttk.Label(master=self.theme_frame,
-                                     text='Selecione um tema:')
-        self.theme_label.pack(side=LEFT,
-                              padx=5,
-                              pady=5, expand=YES)
+        self.theme_label = ttk.Label(
+            master=self.theme_frame, text='Selecione um tema:')
+        self.theme_label.pack(side=LEFT, padx=5, pady=5, expand=YES)
 
-        style = ttk.Style()
-        theme_names = style.theme_names()
-        theme_cbo = ttk.Combobox(master=self.theme_frame,
-                                 text=style.theme.name,
-                                 state='readonly',
-                                 height=50,
-                                 values=theme_names,
-                                 width=10)
-        theme_cbo.pack(side=LEFT, padx=10, pady=10, expand=YES)
-        theme_cbo.current(theme_names.index(style.theme.name))
+        self.style = ttk.Style()
+        self.theme_names = self.style.theme_names()
+        self.theme_cbo = ttk.Combobox(master=self.theme_frame,
+                                      text=self.style.theme.name,
+                                      state='readonly',
+                                      height=50,
+                                      values=self.theme_names,
+                                      width=10)
+
+        self.theme_cbo.pack(side=LEFT, padx=10, pady=10, expand=YES)
+        self.theme_cbo.current(self.theme_names.index(self.style.theme.name))
 
         def change_theme(e):
-            t = theme_cbo.get()
-            style.theme_use(t)
-            theme_cbo.selection_clear()
+            t = self.theme_cbo.get()
+            self.style.theme_use(t)
+            self.theme_cbo.selection_clear()
 
-        theme_cbo.bind("<<ComboboxSelected>>", change_theme)
+        self.theme_cbo.bind("<<ComboboxSelected>>", change_theme)
 
-        self.notebook_tab.add(self.theme_frame,
-                              text='Theme')
+        self.notebook_tab.add(self.theme_frame, text='Theme')
