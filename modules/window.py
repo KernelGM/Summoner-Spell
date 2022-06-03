@@ -1,5 +1,5 @@
 import ttkbootstrap as ttk
-from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT
+from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N
 from modules.variables import summoner_spells, cooldowns
 
 
@@ -63,49 +63,77 @@ class MainWindow():
                                value=1.0,
                                command=self.update_alpha,
                                orient='horizontal',
-                               length=50, style='warning')
-        self.scale.pack(side=LEFT, padx=10, pady=10)
+                               length=80, style='warning')
+        self.scale.pack(anchor=N, padx=10, pady=10)
 
     def update_alpha(self, value):
         self.root.attributes('-alpha', self.scale.get())
 
     def create_tab(self, set_lane):
         self.main_frame = ttk.Frame(master=self.root)
-        self.main_frame.pack(fill=BOTH, expand=YES, padx=5, pady=5)
+        self.main_frame.pack(fill=BOTH,
+                             expand=YES,
+                             padx=5,
+                             pady=5)
 
         self.frame_d = ttk.Frame(master=self.main_frame)
-        self.frame_d.pack(fill=BOTH, expand=YES)
+        self.frame_d.pack(fill=BOTH,
+                          expand=YES)
 
-        self.label_d = ttk.Label(master=self.frame_d, text='Marque o Spell')
-        self.label_d.pack(side=LEFT, padx=5, pady=5)
+        self.label_d = ttk.Label(master=self.frame_d,
+                                 text='Marque o Spell')
+        self.label_d.pack(side=LEFT,
+                          padx=5,
+                          pady=5)
 
-        self.button_d = ttk.Button(
-            master=self.frame_d, text='START', command=self.countdown_d)
-        self.button_d.pack(side=RIGHT, padx=5, pady=5)
+        self.button_d = ttk.Button(master=self.frame_d,
+                                   text='✔️',
+                                   bootstyle='light',
+                                   command=self.countdown_d)
+        self.button_d.pack(side=RIGHT,
+                           padx=5,
+                           pady=5)
 
-        self.combobox_d = ttk.Combobox(
-            master=self.frame_d, values=summoner_spells,
-            state='readonly', exportselection=True)
-        self.combobox_d.pack(side=RIGHT, padx=5, pady=5)
+        self.combobox_d = ttk.Combobox(master=self.frame_d,
+                                       values=summoner_spells,
+                                       state='readonly',
+                                       exportselection=True,
+                                       width=10)
+        self.combobox_d.pack(side=RIGHT,
+                             padx=5,
+                             pady=5)
         self.combobox_d.current(3)
 
         self.frame_f = ttk.Frame(master=self.main_frame)
-        self.frame_f.pack(fill=BOTH, expand=YES)
+        self.frame_f.pack(fill=BOTH,
+                          expand=YES)
 
-        self.label_f = ttk.Label(master=self.frame_f, text='Marque o Spell')
-        self.label_f.pack(side=LEFT, padx=5, pady=5)
+        self.label_f = ttk.Label(master=self.frame_f,
+                                 text='Marque o Spell')
+        self.label_f.pack(side=LEFT,
+                          padx=5,
+                          pady=5)
 
-        self.button_f = ttk.Button(
-            master=self.frame_f, text='START', command=self.countdown_f)
-        self.button_f.pack(side=RIGHT, padx=5, pady=5)
+        self.button_f = ttk.Button(master=self.frame_f,
+                                   text='✔️',
+                                   bootstyle='light',
+                                   command=self.countdown_f)
+        self.button_f.pack(side=RIGHT,
+                           padx=5,
+                           pady=5)
 
-        self.combobox_f = ttk.Combobox(
-            master=self.frame_f, values=summoner_spells,
-            state='readonly', exportselection=True)
-        self.combobox_f.pack(side=RIGHT, padx=5, pady=5)
+        self.combobox_f = ttk.Combobox(master=self.frame_f,
+                                       values=summoner_spells,
+                                       state='readonly',
+                                       exportselection=True,
+                                       width=10)
+        self.combobox_f.pack(side=RIGHT,
+                             padx=5,
+                             pady=5)
         self.combobox_f.current(8)
 
-        self.notebook_tab.add(self.main_frame, text=set_lane)
+        self.notebook_tab.add(self.main_frame,
+                              text=set_lane)
 
     def countdown_d(self, validador=False, sec=None):
         value_d = self.combobox_d.get()
@@ -114,8 +142,12 @@ class MainWindow():
             sec = int(self.time_cooldown)
         if sec == 0:
             self.label_d.configure(text='Acabou o tempo!')
+            self.button_d.configure(state='enable')
+            self.button_d.configure(text='✔️')
         else:
             sec = sec - 1
+            self.button_d.configure(state='disabled')
+            self.button_d.configure(text='❌')
             self.label_d.configure(text=f'Faltam: {sec}')
             self.label_d.after(1000, lambda: self.countdown_d(True, sec))
 
@@ -126,7 +158,11 @@ class MainWindow():
             sec = int(self.time_cooldown)
         if sec == 0:
             self.label_f.configure(text='Acabou o tempo!')
+            self.button_f.configure(state='enable')
+            self.button_f.configure(text='✔️')
         else:
             sec = sec - 1
+            self.button_f.configure(state='disabled')
+            self.button_f.configure(text='❌')
             self.label_f.configure(text=f'Faltam: {sec}')
             self.label_f.after(1000, lambda: self.countdown_f(True, sec))
