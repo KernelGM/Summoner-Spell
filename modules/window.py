@@ -1,6 +1,8 @@
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N
 from modules.variables import summoner_spells, cooldowns
+from keyboard import write, press_and_release
+from time import sleep
 
 
 class MainWindow():
@@ -79,6 +81,7 @@ class MainWindow():
                 label_d.configure(text='Acabou o tempo!')
                 button_d.configure(state='enable')
                 button_d.configure(text='✔️')
+                self.warning_timeout()
             else:
                 sec = sec - 1
                 button_d.configure(state='disabled')
@@ -95,6 +98,7 @@ class MainWindow():
                 label_f.configure(text='Acabou o tempo!')
                 button_f.configure(state='enable')
                 button_f.configure(text='✔️')
+                self.warning_timeout()
             else:
                 sec = sec - 1
                 button_f.configure(state='disabled')
@@ -195,3 +199,9 @@ class MainWindow():
         self.theme_cbo.bind("<<ComboboxSelected>>", change_theme)
 
         self.notebook_tab.add(self.theme_frame, text='Theme')
+
+    def warning_timeout(self):
+        press_and_release('enter')
+        sleep(1)
+        write('olá mundo')
+        press_and_release('enter')
