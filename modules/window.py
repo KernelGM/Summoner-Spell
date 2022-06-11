@@ -1,7 +1,7 @@
 import ttkbootstrap as ttk
 from ttkbootstrap.dialogs import Messagebox
 from modules.variables import summoner_spells, cooldowns
-from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N, DARK
+from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N
 
 
 class MainWindow():
@@ -82,8 +82,6 @@ class MainWindow():
         def notfication():
             Messagebox.show_warning(title='Summoner Spell',
                                     message=f'O {combobox_d.get()} do {set_lane} voltou!',
-                                    bootstyle=DARK,
-                                    parent=None,
                                     alert=True)
 
         def countdown_d(validador=False, sec=None):

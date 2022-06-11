@@ -15,22 +15,8 @@ cooldowns = {
     'Unleashed Teleport': 240,
 }
 
-roles = {'TOP': {
-    'spell_d': 1,
-    'spell_f': 2},
-    'JNG': {
-    'spell_d': 1,
-    'spell_f': 2},
-    'MID': {
-    'spell_d': 1,
-    'spell_f': 2},
-    'ADC': {
-    'spell_d': 1,
-    'spell_f': 2},
-    'SUP': {
-    'spell_d': 1,
-    'spell_f': 2}}
-
-
-for key, value in roles.items():
-    print(key, value)
+roles = {'TOP': {'value_d': 8, 'value_f': 3},
+         'JNG': {'value_d': 7, 'value_f': 3},
+         'MID': {'value_d': 6, 'value_f': 3},
+         'ADC': {'value_d': 5, 'value_f': 3},
+         'SUP': {'value_d': 2, 'value_f': 3}}

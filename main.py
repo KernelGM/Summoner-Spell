@@ -14,8 +14,12 @@ window = MainWindow(root=root)
 window.create_title_bar(app_name='Summoner Spell')
 window.create_notebook()
 window.create_scale()
-for key, value in roles.items():
-    window.create_tab(set_lane=key)
+
+for keys, values in roles.items():
+    window.create_tab(set_lane=keys,
+                      spell_d=values.get('value_d'),
+                      spell_f=values.get('value_f'))
+
 window.change_theme()
 
 # Rodando a janela
