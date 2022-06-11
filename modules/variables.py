@@ -10,9 +10,27 @@ cooldowns = {
     'Ghost': 210,
     'Heal': 240,
     'Ignite': 180,
-    'Smite': 15,
+    'Smite': 3,
     'Teleport': 360,
     'Unleashed Teleport': 240,
 }
 
-roles = ['TOP', 'JNG', 'MID', 'ADC', 'SUP']
+roles = {'TOP': {
+    'spell_d': 1,
+    'spell_f': 2},
+    'JNG': {
+    'spell_d': 1,
+    'spell_f': 2},
+    'MID': {
+    'spell_d': 1,
+    'spell_f': 2},
+    'ADC': {
+    'spell_d': 1,
+    'spell_f': 2},
+    'SUP': {
+    'spell_d': 1,
+    'spell_f': 2}}
+
+
+for key, value in roles.items():
+    print(key, value)

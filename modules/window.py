@@ -1,5 +1,5 @@
 import ttkbootstrap as ttk
-from ttkbootstrap.toast import ToastNotification
+from ttkbootstrap.dialogs import Messagebox
 from modules.variables import summoner_spells, cooldowns
 from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N, DARK
 
@@ -9,6 +9,14 @@ class MainWindow():
         self.root = root
 
     def create_title_bar(self, app_name):
+        def close_app():
+            alpha = float(self.root.attributes("-alpha"))
+            if alpha <= 0.1:
+                self.root.destroy()
+            else:
+                self.root.attributes("-alpha", alpha - 0.5)
+                self.root.after(25, self.root.destroy)
+
         self.root.attributes('-topmost', True)
         self.root.overrideredirect(True)
         self.root.minimized = False
@@ -18,7 +26,7 @@ class MainWindow():
 
         close_button = ttk.Button(self.title_bar, text='❌',
                                   bootstyle=(ttk.DANGER, ttk.LINK),
-                                  command=self.root.destroy)
+                                  command=close_app)
 
         title_bar_title = ttk.Label(self.title_bar, text=app_name)
 
@@ -70,18 +78,13 @@ class MainWindow():
     def update_alpha(self, value):
         self.root.attributes('-alpha', self.scale.get())
 
-    def create_tab(self, set_lane):
-        def toast_notfication():
-            toast = ToastNotification(
-                title='Summoner Spell',
-                message=f'O {combobox_d.get()} do {set_lane} voltou!',
-                duration=5000,
-                bootstyle=DARK,
-                alert=True,
-                position=(0, 100, 'ne'),
-                icon=''
-            )
-            toast.show_toast()
+    def create_tab(self, set_lane, spell_d=3, spell_f=8):
+        def notfication():
+            Messagebox.show_warning(title='Summoner Spell',
+                                    message=f'O {combobox_d.get()} do {set_lane} voltou!',
+                                    bootstyle=DARK,
+                                    parent=None,
+                                    alert=True)
 
         def countdown_d(validador=False, sec=None):
             value_d = combobox_d.get()
@@ -92,7 +95,7 @@ class MainWindow():
                 label_d.configure(text='Acabou o tempo!')
                 button_d.configure(state='enable')
                 button_d.configure(text='✔️')
-                toast_notfication()
+                notfication()
             else:
                 sec = sec - 1
                 button_d.configure(state='disabled')
@@ -109,7 +112,7 @@ class MainWindow():
                 label_f.configure(text='Acabou o tempo!')
                 button_f.configure(state='enable')
                 button_f.configure(text='✔️')
-                toast_notfication()
+                notfication()
             else:
                 sec = sec - 1
                 button_f.configure(state='disabled')
@@ -149,7 +152,7 @@ class MainWindow():
         combobox_d.pack(side=RIGHT,
                         padx=5,
                         pady=5)
-        combobox_d.current(3)
+        combobox_d.current(spell_d)
 
         frame_f = ttk.Frame(master=main_frame)
         frame_f.pack(fill=BOTH,
@@ -177,7 +180,7 @@ class MainWindow():
         combobox_f.pack(side=RIGHT,
                         padx=5,
                         pady=5)
-        combobox_f.current(8)
+        combobox_f.current(spell_f)
 
         self.notebook_tab.add(main_frame,
                               text=set_lane)
