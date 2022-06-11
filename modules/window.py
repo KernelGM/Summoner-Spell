@@ -1,8 +1,7 @@
 import ttkbootstrap as ttk
-from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N
+from ttkbootstrap.toast import ToastNotification
 from modules.variables import summoner_spells, cooldowns
-from keyboard import write, press_and_release
-from time import sleep
+from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N, DARK
 
 
 class MainWindow():
@@ -72,6 +71,18 @@ class MainWindow():
         self.root.attributes('-alpha', self.scale.get())
 
     def create_tab(self, set_lane):
+        def toast_notfication():
+            toast = ToastNotification(
+                title='Summoner Spell',
+                message=f'O {combobox_d.get()} do {set_lane} voltou!',
+                duration=5000,
+                bootstyle=DARK,
+                alert=True,
+                position=(0, 100, 'ne'),
+                icon=''
+            )
+            toast.show_toast()
+
         def countdown_d(validador=False, sec=None):
             value_d = combobox_d.get()
             time_cooldown = cooldowns.get(value_d)
@@ -81,7 +92,7 @@ class MainWindow():
                 label_d.configure(text='Acabou o tempo!')
                 button_d.configure(state='enable')
                 button_d.configure(text='✔️')
-                self.warning_timeout()
+                toast_notfication()
             else:
                 sec = sec - 1
                 button_d.configure(state='disabled')
@@ -98,7 +109,7 @@ class MainWindow():
                 label_f.configure(text='Acabou o tempo!')
                 button_f.configure(state='enable')
                 button_f.configure(text='✔️')
-                self.warning_timeout()
+                toast_notfication()
             else:
                 sec = sec - 1
                 button_f.configure(state='disabled')
@@ -199,9 +210,3 @@ class MainWindow():
         self.theme_cbo.bind("<<ComboboxSelected>>", change_theme)
 
         self.notebook_tab.add(self.theme_frame, text='Theme')
-
-    def warning_timeout(self):
-        press_and_release('enter')
-        sleep(1)
-        write('olá mundo')
-        press_and_release('enter')
