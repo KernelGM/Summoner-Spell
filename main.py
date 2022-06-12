@@ -1,14 +1,10 @@
 import ttkbootstrap as ttk
 from modules.variables import roles
-from modules.size_screen import x, y
+from modules.size_screen import length, width, se
 from modules.window import MainWindow
 
 # Configurando tamnho da tela
 root = ttk.Window(themename='vapor')
-length = 270
-width = 170
-nw = f'{x-length}+{y-width}'
-se = f'{x-length}+{y-y}'
 root.geometry(f'{length}x{width}+{se}')
 
 # Configurando as funcionalidades

@@ -95,7 +95,9 @@ class MainWindow():
         def notfication():
             Messagebox.show_warning(title='Summoner Spell',
                                     message=f'O {combobox_d.get()} do {set_lane} voltou!',
-                                    alert=True)
+                                    alert=True,
+                                    position=(2000, 0)
+                                    )
 
         def countdown_d(validador=False, sec=None):
             value_d = combobox_d.get()
