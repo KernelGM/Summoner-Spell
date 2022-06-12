@@ -7,7 +7,9 @@ from modules.size_screen import x, y
 root = ttk.Window(themename='vapor')
 length = 270
 width = 170
-root.geometry(f'{length}x{width}+{x-length}+{y-width}')
+nw = f'{x-length}+{y-width}'
+se = f'{x-length}+{y-y}'
+root.geometry(f'{length}x{width}+{se}')
 
 # Configurando as funcionalidades
 window = MainWindow(root=root)
