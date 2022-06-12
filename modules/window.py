@@ -1,3 +1,4 @@
+from ctypes import windll
 import ttkbootstrap as ttk
 from ttkbootstrap.dialogs import Messagebox
 from modules.variables import summoner_spells, cooldowns
@@ -7,6 +8,18 @@ from ttkbootstrap.constants import BOTH, YES, LEFT, RIGHT, N
 class MainWindow():
     def __init__(self, root) -> None:
         self.root = root
+
+    def create_appwindow(self, root):
+        GWL_EXSTYLE = -20
+        WS_EX_APPWINDOW = 0x00040000
+        WS_EX_TOOLWINDOW = 0x00000080
+        hwnd = windll.user32.GetParent(root.winfo_id())
+        style = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+        style = style & ~WS_EX_TOOLWINDOW
+        style = style | WS_EX_APPWINDOW
+        res = windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, style)
+        root.wm_withdraw()
+        root.after(10, lambda: root.wm_deiconify())
 
     def create_title_bar(self, app_name):
         def close_app():

@@ -1,7 +1,7 @@
 import ttkbootstrap as ttk
-from modules.window import MainWindow
 from modules.variables import roles
 from modules.size_screen import x, y
+from modules.window import MainWindow
 
 # Configurando tamnho da tela
 root = ttk.Window(themename='vapor')
@@ -23,6 +23,10 @@ for keys, values in roles.items():
                       spell_f=values.get('value_f'))
 
 window.change_theme()
+
+# Cria janela na taskbar do Windows
+root.wm_title('Summoner Spell')
+root.after(10, lambda: window.create_appwindow(root))
 
 # Rodando a janela
 root.mainloop()
